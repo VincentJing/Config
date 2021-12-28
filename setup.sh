@@ -18,6 +18,12 @@ install_plug() {
     echo "zsh-autosuggestions zsh-syntax-highlighting"
 }
 
+vim_config() {
+    echo -e "Install vim plugins manager"
+    curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+    cp vimrc.config ~/.vimrc
+}
+
 
 while [ 1 == 1 ]
     do
@@ -25,6 +31,7 @@ while [ 1 == 1 ]
         re="^[1-9][0-9]*$"
         select opt in "安装 oh my zsh" \
                     "zsh 安装插件" \
+                    "Vim config" \
                     "退出" ; do
 
             if ! [[ $REPLY =~ $re ]] ; then
@@ -38,6 +45,9 @@ while [ 1 == 1 ]
                 install_plug
                 break
             elif (( $REPLY == 3 )) ; then
+                vim_config
+                break
+            elif (( $REPLY == 4 )) ; then
                 exit
             else
                 echo -e "${COLOR_ERROR}Invalid option. Try another one.${COLOR_NONE}"
